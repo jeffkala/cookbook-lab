@@ -1,0 +1,9 @@
+---
+dev_os: "srl"
+optional_args: {
+  "jsonrpc_port": 443,
+  "gnmi_port": 57400,
+  # "skip_verify": True,
+  "encoding": "JSON_IETF",
+  "insecure": True,
+}

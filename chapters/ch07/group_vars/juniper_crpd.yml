@@ -1,0 +1,3 @@
+---
+dev_os: "junos"
+optional_args: {"use_keys": True, "key_file": "../ch05/Ansible_SSH_key"}
