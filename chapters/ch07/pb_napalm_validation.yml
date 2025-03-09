@@ -1,0 +1,10 @@
+---
+- name: "VALIDATING NETWORK STATE VIA NAPALM"
+  hosts: "arista_ceos,juniper_crpd"
+  tasks:
+    - name: "VALIDATION WITH NAPALM"
+      napalm_validate:
+        optional_args: "{{ optional_args }}"
+        dev_os: "{{ dev_os }}"
+        validation_file: "napalm_validate/{{ inventory_hostname}}.yml"
+      ignore_errors: false

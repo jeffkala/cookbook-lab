@@ -1,0 +1,4 @@
+{% for server in ntp["server"] %}
+set system ntp admin-state enable network-instance default server {{ server }}
+{% endfor %}
+set system clock timezone America/Denver

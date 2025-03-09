@@ -1,15 +1,14 @@
 ---
 - name: "Collect Network Facts using NAPALM"
-  hosts: "srl-01"
+  hosts: "arista_ceos,nokia_srlinux"
   gather_facts: False
   tasks:
-    - name: "Collect BGP NEIGHBOR NAPALM Facts"
+    - name: "Collect Interfaces NAPALM Facts"
       napalm_get_facts:
         optional_args: "{{ optional_args }}"
         dev_os: "{{ dev_os }}"
         filter:
-          # - users
-        - bgp_neighbors
-      register: int_list
-    - debug:
-        var: int_list
+          - interfaces
+      register: interfaces
+    - ansible.builtin.debug:
+        var: interfaces

@@ -1,0 +1,4 @@
+{% for server in ntp["server"] %}
+ntp server {{ server }}
+{% endfor %}
+clock timezone America/Denver

@@ -1,0 +1,28 @@
+---
+- name: "CONFIGURE NTP USING NAPALM"
+  hosts: "network_equipment"
+  gather_facts: False
+  vars:
+    ntp:
+      server:
+      - 0.us.pool.ntp.org
+      - 1.us.pool.ntp.org
+      - 2.us.pool.ntp.org
+  tasks:
+    - name: "CREATE CONFIGS DIRECTORY"
+      ansible.builtin.file:
+        path: "configs"
+        state: "directory"
+      run_once: true
+    - name: "GENERATE NTP CONFIGURATION TO PUSH"
+      ansible.builtin.template:
+        src: "{{ ansible_network_os | split('.') | last }}.j2"
+        dest: "./configs/{{ inventory_hostname }}.cfg"
+    - name: "INSTALL NTP CONFIG AND SAVE DIFF"
+      napalm_install_config:
+        optional_args: "{{ optional_args }}"
+        dev_os: "{{ dev_os }}"
+        config_file: "./configs/{{ inventory_hostname }}.cfg"
+        commit_changes: true
+        replace_config: false
+        get_diffs: false

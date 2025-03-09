@@ -1,0 +1,22 @@
+---
+- name: "Collect Network Facts using NAPALM"
+  hosts: "arista_ceos,juniper_crpd"
+  gather_facts: False
+  tasks:
+    - name: "Collect BGP NEIGHBOR NAPALM Facts"
+      napalm_get_facts:
+        optional_args: "{{ optional_args }}"
+        dev_os: "{{ dev_os }}"
+        filter:
+          - bgp_neighbors
+      register: bgp_info
+    - debug:
+        msg: "{{ bgp_info | to_nice_yaml }}"
+    - name: "Assert all BGP Neighbors are established"
+      ansible.builtin.assert:
+        that:
+          - item.value['is_up'] is true
+        quiet: true
+      loop: "{{ bgp_info['ansible_facts']['napalm_bgp_neighbors']['global']['peers'] | dict2items }}"
+      loop_control:
+        label: "{{item.key}} is_up: {{ item.value['is_up'] }}"
