@@ -4,37 +4,15 @@
       router_id: 10.100.1.1
       peers:
           10.100.1.254:
-              address_family:
-                  ipv4:
-                      accepted_prefixes: -1
-                      received_prefixes: 9
-                      sent_prefixes: 4
-                  ipv6:
-                      accepted_prefixes: -1
-                      received_prefixes: 0
-                      sent_prefixes: 0
-              description: '"Peer Group for Overlay"'
               is_enabled: true
               is_up: true
               local_as: 65001
               remote_as: 65100
               remote_id: 10.100.1.254
-              uptime: 352999
           172.31.1.0:
-              address_family:
-                  ipv4:
-                      accepted_prefixes: -1
-                      received_prefixes: 2
-                      sent_prefixes: 2
-                  ipv6:
-                      accepted_prefixes: -1
-                      received_prefixes: 0
-                      sent_prefixes: 0
-              description: '"Peer Group for Underlay"'
               is_enabled: true
               is_up: true
               local_as: 65001
               remote_as: 65100
               remote_id: 10.100.1.254
-              uptime: 352999
       router_id: 10.100.1.1

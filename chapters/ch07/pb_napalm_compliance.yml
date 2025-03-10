@@ -1,0 +1,23 @@
+---
+- name: "VALIDATING NETWORK STATE VIA NAPALM"
+  hosts: "arista_ceos,juniper_crpd"
+  tasks:
+    - name: "VALIDATION WITH NAPALM"
+      napalm_validate:
+        optional_args: "{{ optional_args }}"
+        dev_os: "{{ dev_os }}"
+        validation_file: "napalm_validate/{{ inventory_hostname}}.yml"
+      ignore_errors: true
+      register: net_validate
+    - name: "CREATE COMPLIANCE REPORT FOLDER"
+      ansible.builtin.file: 
+        path: "compliance_folder"
+        state: "directory"
+    - name: "CLEAN LAST COMPLIANCE REPORT"
+      ansible.builtin.file:
+        path: "compliance_folder/{{inventory_hostname}}.txt"
+        state: "absent"
+    - name: "CREATE COMPLIANCE REPORT"
+      ansible.builtin.copy:
+        content: "{{ net_validate.compliance_report | to_nice_yaml }}"
+        dest: "compliance_folder/{{ inventory_hostname }}.txt"
