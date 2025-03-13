@@ -1,5 +1,5 @@
 ---
-- name: "Collect and Validate Juniper Core Facts"
+- name: "Collect and Validate Nokia Facts"
   hosts: "nokia_srlinux"
   vars_files:
     - srl_secret.yml

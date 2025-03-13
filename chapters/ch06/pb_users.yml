@@ -11,9 +11,9 @@
         replace:
           - path: /system/aaa/authentication/user[username={{ item }}]
             value:
-              password: "{{ lookup('vars', item.replace('-', '_')) }}"
+              password: "{{ lookup('vars' }}_password"
               superuser: "{% if 'rw' in item %}true{% else %}false{% endif %}"
         save_when: "changed"
       loop:
-        - "ansible-rw"
-        - "ansible-ro"
+        - "ansible_rw"
+        - "ansible_ro"
